@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイプロンプト帳</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (アイコン用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自分のCSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ヘッダーエリア -->
+    <header class="bg-dark text-white p-3 sticky-top">
+        <div class="container">
+            <h5>選択中のプロンプト</h5>
+            <div id="selected-prompts-container" class="p-2 bg-secondary rounded mb-2" title="クリックしてコピー">
+                <span class="text-muted">プロンプトを選択してください...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツエリア -->
+    <main class="container mt-4">
+        <h1 class="mb-4">マイプロンプト帳</h1>
+
+        <!-- 操作ボタンエリア -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <button id="add-folder-btn" class="btn btn-primary"><i class="fas fa-folder-plus"></i> フォルダ追加</button>
+            <button id="save-data-btn" class="btn btn-success"><i class="fas fa-save"></i> 手動保存</button>
+            <!-- 👇 ここから追加 -->
+            <button id="export-btn" class="btn btn-info"><i class="fas fa-file-export"></i> エクスポート</button>
+            <button id="import-btn" class="btn btn-warning"><i class="fas fa-file-import"></i> インポート</button>
+            <!-- 👆 ここまで追加 -->
+            <button id="reset-data-btn" class="btn btn-danger"><i class="fas fa-trash-alt"></i> 全データリセット</button>
+        </div>
+        
+        <!-- 👇 追加：インポート時に使用する非表示のファイル選択input -->
+        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+
+
+        <!-- プロンプトリストが表示される場所 -->
+        <div id="prompt-list-container">
+            <!-- ここにJavaScriptでフォルダやプロンプトが生成される -->
+        </div>
+
+    </main>
+    
+    <!-- フッター -->
+    <footer class="text-center text-muted py-4">
+        <p>&copy; 2024 My Prompt Manager</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SortableJSライブラリ -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <!-- 自分のJavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

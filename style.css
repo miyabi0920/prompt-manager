@@ -1,0 +1,90 @@
+/* --- 全体の設定 --- */
+body {
+    background-color: #f8f9fa; /* 少しグレーがかった背景色 */
+}
+
+/* --- ヘッダーの選択済みプロンプト欄 --- */
+#selected-prompts-container {
+    min-height: 60px; /* 最低限の高さを確保 */
+    cursor: pointer; /* マウスカーソルを指の形にする */
+    word-break: break-all; /* 長いプロンプトがはみ出ないように改行する */
+    transition: background-color 0.2s; /* 背景色が変わるアニメーション */
+}
+
+#selected-prompts-container:hover {
+    background-color: #5a6268 !important; /* ホバー時の色を少し明るく */
+}
+
+/* --- フォルダやプロンプトのテーブル --- */
+.prompt-table {
+    user-select: none; /* テキスト選択を無効にしてクリックしやすくする */
+    background-color: #fff;
+}
+
+.prompt-table tbody tr {
+    cursor: pointer; /* 行全体をクリックできることがわかるように */
+    transition: background-color 0.2s;
+}
+
+.prompt-table tbody tr:hover {
+    background-color: #f1f1f1; /* マウスが乗った行の色 */
+}
+
+.prompt-table .form-check-input {
+    pointer-events: none; /* チェックボックス自体はクリックさせない（行クリックで反応させるため） */
+}
+
+/* 選択された行のスタイル */
+.table-primary {
+    --bs-table-bg: #cfe2ff; /* Bootstrapの選択色を少し変える */
+}
+
+/* 編集・削除ボタン */
+.action-btn {
+    cursor: pointer;
+    margin: 0 5px; /* ボタンの周りに少し余白 */
+    color: #6c757d; /* ボタンの色 */
+    transition: color 0.2s;
+}
+
+.action-btn:hover {
+    color: #343a40; /* ホバー時の色 */
+}
+
+/* フォルダ名の編集を可能にするスタイル */
+.folder-title[contenteditable="true"] {
+    outline: 2px solid #0d6efd; /* 編集中は青い枠線をつける */
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* --- ドラッグ＆ドロップ用のスタイル --- */
+.folder-drag-handle, .prompt-drag-handle {
+    cursor: grab !important; /* マウスカーソルをつかむ形に */
+}
+
+.folder-drag-handle {
+    width: 100%;
+    display: block;
+}
+
+.prompt-drag-handle {
+    text-align: center;
+}
+
+/* ドラッグされている要素のスタイル */
+.sortable-chosen {
+    background-color: #e9ecef !important; /* 少し濃い背景色 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影をつけて浮かび上がらせる */
+}
+
+/* ドラッグ先のプレースホルダー（ゴースト）のスタイル */
+.sortable-ghost {
+    opacity: 0.4; /* 半透明にする */
+    background: #c8e6c9; /* どこにドロップされるか分かりやすくする色 */
+}
+
+/* 👇 追加：インポート・エクスポートボタンの色を白に */
+.btn-info, .btn-warning {
+    color: #fff;
+}
