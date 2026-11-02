@@ -1,90 +1,133 @@
 /* --- 全体の設定 --- */
 body {
-    background-color: #f8f9fa; /* 少しグレーがかった背景色 */
+    background-color: #f4f6f9;
 }
 
 /* --- ヘッダーの選択済みプロンプト欄 --- */
 #selected-prompts-container {
-    min-height: 60px; /* 最低限の高さを確保 */
-    cursor: pointer; /* マウスカーソルを指の形にする */
-    word-break: break-all; /* 長いプロンプトがはみ出ないように改行する */
-    transition: background-color 0.2s; /* 背景色が変わるアニメーション */
+    min-height: 52px;
+    cursor: pointer;
+    word-break: break-all;
+    transition: background-color 0.2s;
+    font-family: monospace;
+    font-size: 0.95rem;
 }
 
 #selected-prompts-container:hover {
-    background-color: #5a6268 !important; /* ホバー時の色を少し明るく */
+    background-color: #5a6268 !important;
 }
 
-/* --- フォルダやプロンプトのテーブル --- */
-.prompt-table {
-    user-select: none; /* テキスト選択を無効にしてクリックしやすくする */
-    background-color: #fff;
+/* --- 横並びタブ --- */
+#folder-tabs {
+    scrollbar-width: thin;
+    border-bottom: 1px solid #dee2e6;
 }
 
-.prompt-table tbody tr {
-    cursor: pointer; /* 行全体をクリックできることがわかるように */
-    transition: background-color 0.2s;
-}
-
-.prompt-table tbody tr:hover {
-    background-color: #f1f1f1; /* マウスが乗った行の色 */
-}
-
-.prompt-table .form-check-input {
-    pointer-events: none; /* チェックボックス自体はクリックさせない（行クリックで反応させるため） */
-}
-
-/* 選択された行のスタイル */
-.table-primary {
-    --bs-table-bg: #cfe2ff; /* Bootstrapの選択色を少し変える */
-}
-
-/* 編集・削除ボタン */
-.action-btn {
+#folder-tabs .nav-link {
+    white-space: nowrap;
     cursor: pointer;
-    margin: 0 5px; /* ボタンの周りに少し余白 */
-    color: #6c757d; /* ボタンの色 */
-    transition: color 0.2s;
+    color: #495057;
+    background-color: #e9ecef;
+    margin-right: 4px;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.action-btn:hover {
-    color: #343a40; /* ホバー時の色 */
+#folder-tabs .nav-link.active {
+    color: #0d6efd;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    font-weight: 600;
 }
 
-/* フォルダ名の編集を可能にするスタイル */
-.folder-title[contenteditable="true"] {
-    outline: 2px solid #0d6efd; /* 編集中は青い枠線をつける */
-    padding: 2px 5px;
-    border-radius: 3px;
+/* --- プロンプト選択肢（チップ形式） --- */
+.prompt-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* --- ドラッグ＆ドロップ用のスタイル --- */
+.prompt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+}
+
+.prompt-chip:hover {
+    border-color: #adb5bd;
+    background-color: #e9ecef;
+}
+
+/* 選択状態のチップ */
+.prompt-chip.selected {
+    background-color: #e7f1ff;
+    border-color: #0d6efd;
+    color: #084298;
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.15);
+}
+
+.prompt-chip .chip-meaning {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.prompt-chip .chip-text {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-family: monospace;
+}
+
+.prompt-chip.selected .chip-text {
+    color: #0a58ca;
+}
+
+.prompt-chip .delete-chip-btn {
+    color: #adb5bd;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+
+.prompt-chip .delete-chip-btn:hover {
+    color: #dc3545;
+}
+
+/* --- ドラッグハンドル --- */
 .folder-drag-handle, .prompt-drag-handle {
-    cursor: grab !important; /* マウスカーソルをつかむ形に */
+    cursor: grab !important;
+    color: #adb5bd;
 }
 
-.folder-drag-handle {
-    width: 100%;
-    display: block;
+.folder-drag-handle:hover, .prompt-drag-handle:hover {
+    color: #495057;
 }
 
-.prompt-drag-handle {
-    text-align: center;
-}
-
-/* ドラッグされている要素のスタイル */
 .sortable-chosen {
-    background-color: #e9ecef !important; /* 少し濃い背景色 */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影をつけて浮かび上がらせる */
+    opacity: 0.9;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* ドラッグ先のプレースホルダー（ゴースト）のスタイル */
 .sortable-ghost {
-    opacity: 0.4; /* 半透明にする */
-    background: #c8e6c9; /* どこにドロップされるか分かりやすくする色 */
+    opacity: 0.3;
+    background: #cfe2ff !important;
 }
 
-/* 👇 追加：インポート・エクスポートボタンの色を白に */
-.btn-info, .btn-warning {
-    color: #fff;
+/* --- 検索サジェスト候補 --- */
+.suggestion-item {
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f3f5;
 }

@@ -13,45 +13,66 @@
 </head>
 <body>
 
-    <!-- ヘッダーエリア -->
-    <header class="bg-dark text-white p-3 sticky-top">
+    <!-- ヘッダーエリア（上部固定） -->
+    <header class="bg-dark text-white p-3 sticky-top shadow-sm">
         <div class="container">
-            <h5>選択中のプロンプト</h5>
-            <div id="selected-prompts-container" class="p-2 bg-secondary rounded mb-2" title="クリックしてコピー">
-                <span class="text-muted">プロンプトを選択してください...</span>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <h6 class="mb-0"><i class="fas fa-check-double me-1"></i>選択中のプロンプト <small class="text-white-50 ms-2">(クリックでコピー)</small></h6>
+                <button id="clear-selection-header-btn" class="btn btn-sm btn-outline-light py-0" title="選択をすべて解除">
+                    <i class="fas fa-eraser"></i> クリア
+                </button>
+            </div>
+            <div id="selected-prompts-container" class="p-2 bg-secondary rounded" title="クリックしてコピー">
+                <span class="text-white-50">プロンプトを選択してください...</span>
             </div>
         </div>
     </header>
 
     <!-- メインコンテンツエリア -->
     <main class="container mt-4">
-        <h1 class="mb-4">マイプロンプト帳</h1>
-
-        <!-- 操作ボタンエリア -->
-        <div class="d-flex flex-wrap gap-2 mb-4">
-            <button id="add-folder-btn" class="btn btn-primary"><i class="fas fa-folder-plus"></i> フォルダ追加</button>
-            <button id="save-data-btn" class="btn btn-success"><i class="fas fa-save"></i> 手動保存</button>
-            <!-- 👇 ここから追加 -->
-            <button id="export-btn" class="btn btn-info"><i class="fas fa-file-export"></i> エクスポート</button>
-            <button id="import-btn" class="btn btn-warning"><i class="fas fa-file-import"></i> インポート</button>
-            <!-- 👆 ここまで追加 -->
-            <button id="reset-data-btn" class="btn btn-danger"><i class="fas fa-trash-alt"></i> 全データリセット</button>
+        
+        <!-- タイトル＆操作ボタンエリア -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0 fs-4 fw-bold">マイプロンプト帳</h2>
+            <div class="d-flex flex-wrap gap-2">
+                <button id="add-folder-btn" class="btn btn-primary btn-sm"><i class="fas fa-folder-plus"></i> タブ追加</button>
+                <button id="save-data-btn" class="btn btn-success btn-sm"><i class="fas fa-save"></i> 手動保存</button>
+                <button id="export-btn" class="btn btn-info btn-sm text-white"><i class="fas fa-file-export"></i> エクスポート</button>
+                <button id="import-btn" class="btn btn-warning btn-sm text-white"><i class="fas fa-file-import"></i> インポート</button>
+                <!-- 全データリセットを一括選択解除に入れ替え -->
+                <button id="clear-selection-btn" class="btn btn-danger btn-sm"><i class="fas fa-times-circle"></i> 選択を一括解除</button>
+            </div>
         </div>
         
-        <!-- 👇 追加：インポート時に使用する非表示のファイル選択input -->
+        <!-- インポート用ファイル選択（非表示） -->
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
 
+        <!-- 検索バー（サジェスト候補付き） -->
+        <div class="position-relative mb-4">
+            <div class="input-group">
+                <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" id="search-input" class="form-control" placeholder="プロンプトや意味を検索...（例: 胸、silver、最高品質）" autocomplete="off">
+                <button id="search-clear-btn" class="btn btn-outline-secondary d-none" type="button"><i class="fas fa-times"></i></button>
+            </div>
+            <!-- 検索候補（これ？リスト）が表示される場所 -->
+            <div id="search-suggestions" class="list-group position-absolute w-100 shadow-lg d-none" style="z-index: 1050; max-height: 320px; overflow-y: auto;"></div>
+        </div>
 
-        <!-- プロンプトリストが表示される場所 -->
-        <div id="prompt-list-container">
-            <!-- ここにJavaScriptでフォルダやプロンプトが生成される -->
+        <!-- 横並びタブ（カテゴリ） -->
+        <ul class="nav nav-tabs flex-nowrap overflow-x-auto" id="folder-tabs" role="tablist">
+            <!-- JSでタブを生成 -->
+        </ul>
+
+        <!-- 選択中タブの中身（選択肢エリア） -->
+        <div class="tab-content bg-white border border-top-0 rounded-bottom p-3 shadow-sm" id="folder-tab-content">
+            <!-- JSでプロンプト選択肢を生成 -->
         </div>
 
     </main>
     
     <!-- フッター -->
-    <footer class="text-center text-muted py-4">
-        <p>&copy; 2024 My Prompt Manager</p>
+    <footer class="text-center text-muted py-4 mt-4">
+        <p class="small">&copy; 2024 My Prompt Manager</p>
     </footer>
 
     <!-- Bootstrap JavaScript -->
